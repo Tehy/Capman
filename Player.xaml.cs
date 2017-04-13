@@ -19,21 +19,62 @@ namespace Capman
 {
     public sealed partial class Player : UserControl
     {
+        // Speed and acceleration
+       
+        
+        private double speed = 5;
+
         //location
         public double LocationX { get; set; }
         public double LocationY { get; set; }
 
-        //show player
+
+
+        public Player()
+        {
+            this.InitializeComponent();
+        }
+
+             // Show player
         public void SetLocation()
         {
             SetValue(Canvas.LeftProperty, LocationX);
             SetValue(Canvas.TopProperty, LocationY);
         }
 
-        public Player()
+        // Move
+        public void MoveUp()
         {
-            this.InitializeComponent();
-
+            // Update location values (with speed)
+            LocationY -= speed;
+            if (LocationY >= 550) LocationY = -50;
+            else if (LocationY <= -50 ) LocationY = 550;
         }
+
+        public void MoveDown()
+        {
+            // Update location values (with speed)
+            LocationY += speed;
+            if (LocationY >= 550) LocationY = -50;
+            else if (LocationY <= -50) LocationY = 550;
+        }
+
+        public void MoveLeft()
+        {
+            // Update location values (with speed)
+            LocationX += speed;
+            if (LocationX >= 750) LocationX = -75;
+            else if (LocationX <= -75) LocationX = 750;
+        }
+
+        public void MoveRight()
+        {
+            // Update location values (with speed)
+            LocationX -= speed;
+            if (LocationX >= 750) LocationX = -75;
+            else if (LocationX <= -75) LocationX = 750;
+        }
+
     }
 }
+

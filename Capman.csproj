@@ -98,6 +98,9 @@
     <Compile Include="Character.xaml.cs">
       <DependentUpon>Character.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Food.xaml.cs">
+      <DependentUpon>Food.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,7 @@
     <None Include="Capman_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Ball.png" />
     <Content Include="Assets\capman_ph.gif" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -129,6 +133,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Character.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Food.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
