@@ -30,6 +30,11 @@ namespace Capman
 
         private List<Food> foods;
 
+        // Wall
+
+        private List<Wall> walls;
+
+
         // which keys are pressed
 
         private bool UpPressed;
@@ -57,6 +62,9 @@ namespace Capman
 
             // initialize list of food
             foods = new List<Food>();
+
+            // initialize wall list
+            walls = new List<Wall>();
 
             // key Listener
 
