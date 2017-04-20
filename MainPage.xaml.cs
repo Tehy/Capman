@@ -61,6 +61,8 @@ namespace Capman
 
             };
             MyCanvas.Children.Add(player);
+            
+          
 
             // initialize list of food
             foods = new List<Food>();
@@ -68,9 +70,13 @@ namespace Capman
             // initialize wall list
             walls = new List<Wall>();
 
-            // key Listener
+            CreateWalls();
 
-            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+
+
+                // key Listener
+
+                Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
      
 
             // Timer
@@ -87,7 +93,7 @@ namespace Capman
         }
 
 
-        /* private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+        private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
          {
              // create a new food
              Food food = new Food();
@@ -101,8 +107,8 @@ namespace Capman
              // add to foods list (for collision checking)
              foods.Add(food);
          }
-         */
-
+         
+        /*
         private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
         {
             // create a new wall
@@ -116,7 +122,7 @@ namespace Capman
             wall.SetLocation();
             // add to walls list (for collision checking)
             walls.Add(wall);
-        }
+        }*/
 
         private void Timer_Tick(object sender, object e)
         {
@@ -278,6 +284,152 @@ namespace Capman
                     break;
             }
 
+        }
+
+        private void CreateWalls()
+        {
+
+            for (int i = 0; i < 50; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = i * 20;
+                wall.LocationY = 0;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 0; i < 50; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = i * 20;
+                wall.LocationY = 980;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 0; i < 50; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 0;
+                wall.LocationY = i * 20;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 0; i < 50; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 980;
+                wall.LocationY = i * 20;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 5; i < 20; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 500;
+                wall.LocationY = i * 20;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 5; i < 20; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 500;
+                wall.LocationY = i * 20;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 5; i < 20; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 500;
+                wall.LocationY = 500 + i * 20;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+
+            for (int i = 5; i < 20; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 200;
+                wall.LocationY = 500 + i * 20;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+
+            }
+            for (int i = 5; i < 20; i++)
+            {// create a new wall
+
+                Wall wall = new Wall();
+                // set location 
+                wall.LocationX = 500 + i * 20;
+                wall.LocationY = 250;
+                // add to game canvas
+                MyCanvas.Children.Add(wall);
+                // set wall location in canvas
+                wall.SetLocation();
+                // add to walls list (for collision checking)
+                walls.Add(wall);
+            }
         }
     }
 }

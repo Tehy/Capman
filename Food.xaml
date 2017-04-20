@@ -10,6 +10,6 @@
     d:DesignWidth="400">
 
     <Image Source="Assets/ball.png" 
-           Width="20"
-           Height="20"/>
+           Width="10"
+           Height="10"/>
 </UserControl>

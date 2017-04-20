@@ -26,8 +26,8 @@ namespace Capman
         {
             this.InitializeComponent();
 
-            Width = 50;
-            Height = 50;
+            Width = 20;
+            Height = 20;
         }
         public void SetLocation()
         {

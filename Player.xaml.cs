@@ -47,32 +47,32 @@ namespace Capman
         {
             // Update location values (with speed)
             LocationY -= speed;
-            if (LocationY >= 550) LocationY = -50;
-            else if (LocationY <= -50 ) LocationY = 550;
+            //if (LocationY >= 550) LocationY = -50;
+            //else if (LocationY <= -50 ) LocationY = 550;
         }
 
         public void MoveDown()
         {
             // Update location values (with speed)
             LocationY += speed;
-            if (LocationY >= 550) LocationY = -50;
-            else if (LocationY <= -50) LocationY = 550;
+            //if (LocationY >= 550) LocationY = -50;
+            //else if (LocationY <= -50) LocationY = 550;
         }
 
         public void MoveLeft()
         {
             // Update location values (with speed)
             LocationX -= speed;
-            if (LocationX >= 750) LocationX = -75;
-            else if (LocationX <= -75) LocationX = 750;
+            //if (LocationX >= 750) LocationX = -75;
+           // else if (LocationX <= -75) LocationX = 750;
         }
 
         public void MoveRight()
         {
             // Update location values (with speed)
             LocationX += speed;
-            if (LocationX >= 750) LocationX = -75;
-            else if (LocationX <= -75) LocationX = 750;
+           // if (LocationX >= 750) LocationX = -75;
+            //else if (LocationX <= -75) LocationX = 750;
         }
 
     }

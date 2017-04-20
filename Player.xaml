@@ -9,7 +9,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Rectangle Width="100" Height="100">
+    <Rectangle Width="30" Height="30">
         <Rectangle.Fill>
             <ImageBrush
                 ImageSource="Assets/Ball.png"
