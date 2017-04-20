@@ -45,16 +45,77 @@ namespace Capman
         private bool WallCollision;
 
         // game loop timer
-        private DispatcherTimer timer;   
+        private DispatcherTimer timer;
 
+        
 
 
         public MainPage()
         {
 
             this.InitializeComponent();
-            // add player
-            player = new Player
+
+            
+           /* // MapMatrix
+            int[][] array2D = new int[50][50];
+
+
+            for (int i = 0; i < 50; i++)
+
+            {
+                for (int j = 0; j < 50; j++)
+                {
+                    if (array2D[j][i] == 2)
+                    {
+                        player = new Player();
+                        {
+                            LocationX = j * 20;
+                            LocationY = i * 20;
+                        };
+                    MyCanvas.Children.Add(player);
+
+                    }
+
+                else if (array2D[j][i] == 1)
+                {
+                    // create a new food
+                    Food food = new Food();
+                        // set location 
+                        {
+                            LocationX = j * 20;
+                            LocationY = i * 20;
+                        };
+                        MyCanvas.Children.Add(food);
+                        // set wall location in canvas
+                        food.SetLocation();
+                        // add to walls list (for collision checking)
+                        walls.Add(food);
+                    }
+
+                    else if (array2D[j][i] == 1)
+                    {
+                        // create a new food
+                       Wall wall = new Wall();
+                        // set location 
+                        {
+                            LocationX = j * 20;
+                            LocationY = i * 20;
+                        };
+                        MyCanvas.Children.Add(Wall);
+                        // set wall location in canvas
+                        wall.SetLocation();
+                        // add to walls list (for collision checking)
+                        walls.Add(wall);
+                    }
+
+                    */
+
+
+
+
+
+                    // add player
+                    player = new Player
             {
                 LocationX = MyCanvas.Width / 2,
                 LocationY = MyCanvas.Height / 2
@@ -165,7 +226,7 @@ namespace Capman
                 // is Brect empty?
                 if (!Brect.IsEmpty)
                 {
-                    // remove flower
+                    // remove food
                     MyCanvas.Children.Remove(food);
                     foods.Remove(food);
                     
