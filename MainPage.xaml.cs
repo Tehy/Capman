@@ -41,6 +41,8 @@ namespace Capman
         private bool LeftPressed;
         private bool RightPressed;
         private bool DownPressed;
+        // Was there a collision with wall
+        private bool WallCollision;
 
         // game loop timer
         private DispatcherTimer timer;   
@@ -83,30 +85,51 @@ namespace Capman
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
 
         }
-        
+
+
+        /* private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
+         {
+             // create a new flower
+             Food food = new Food();
+             // set location with mouse position
+             food.LocationX = args.CurrentPoint.Position.X - food.Width / 2;
+             food.LocationY = args.CurrentPoint.Position.Y - food.Height / 2;
+             // add to game canvas
+             MyCanvas.Children.Add(food);
+             // set flower location in canvas
+             food.SetLocation();
+             // add to flowers list (for collision checking)
+             foods.Add(food);
+         }
+         */
 
         private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
         {
             // create a new flower
-            Food food = new Food();
+            Wall wall = new Wall();
             // set location with mouse position
-            food.LocationX = args.CurrentPoint.Position.X - food.Width / 2;
-            food.LocationY = args.CurrentPoint.Position.Y - food.Height / 2;
+            wall.LocationX = args.CurrentPoint.Position.X - wall.Width / 2;
+            wall.LocationY = args.CurrentPoint.Position.Y - wall.Height / 2;
             // add to game canvas
-            MyCanvas.Children.Add(food);
+            MyCanvas.Children.Add(wall);
             // set flower location in canvas
-            food.SetLocation();
+            wall.SetLocation();
             // add to flowers list (for collision checking)
-            foods.Add(food);
+            walls.Add(wall);
         }
 
         private void Timer_Tick(object sender, object e)
         {
+            
             if (UpPressed) player.MoveUp();
             if (DownPressed) player.MoveDown();
             if (RightPressed) player.MoveLeft();
             if (LeftPressed) player.MoveRight();
-
+            CheckCollisionWall();
+            if (WallCollision == false)
+            {
+                player.SetLocation();
+            }
             player.SetLocation();
 
             // check collisions alle
@@ -143,6 +166,84 @@ namespace Capman
                     
                   
                     break;
+                }
+
+            }
+        }
+
+        private void CheckCollisionWall()
+        {
+            foreach (Wall wall in walls)
+            {
+                // get rects
+                Rect Brect = new Rect(
+                    player.LocationX,
+                    player.LocationY,
+                    player.ActualWidth,
+                    player.ActualHeight
+                    );
+
+                Rect FRect = new Windows.Foundation.Rect(
+                    wall.LocationX,
+                    wall.LocationY,
+                    wall.ActualWidth,
+                    wall.ActualHeight
+                    );
+                // does these intersects?
+                Brect.Intersect(FRect);
+                // is Brect empty?
+                if (!Brect.IsEmpty)
+                {
+                    if (UpPressed == false)
+                    {
+                        player.MoveDown();
+                        UpPressed = false;
+                        LeftPressed = false;
+                        RightPressed = false;
+                        DownPressed = false;
+                        WallCollision = true;
+                        break;
+                    }
+                    else if (DownPressed == false)
+                    {
+                        player.MoveUp();
+                        UpPressed = false;
+                        LeftPressed = false;
+                        RightPressed = false;
+                        DownPressed = false;
+                        WallCollision = true;
+                        break;
+                    }
+                    else if (LeftPressed == false)
+                    {
+                        player.MoveRight();
+                        UpPressed = false;
+                        LeftPressed = false;
+                        RightPressed = false;
+                        DownPressed = false;
+                        WallCollision = true;
+                        break;
+                    }
+                    else if (RightPressed == false)
+                    {
+                        player.MoveLeft();
+                        UpPressed = false;
+                        LeftPressed = false;
+                        RightPressed = false;
+                        DownPressed = false;
+                        WallCollision = true;
+                        break;
+                    }
+                    /*UpPressed = false;
+                    LeftPressed = false;
+                    RightPressed = false;
+                    DownPressed = false;
+                    WallCollision = true;
+                    break;*/
+                }
+                else
+                {
+                    WallCollision = false;
                 }
 
             }
