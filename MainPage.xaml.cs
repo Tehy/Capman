@@ -123,15 +123,14 @@ namespace Capman
             
             if (UpPressed) player.MoveUp();
             if (DownPressed) player.MoveDown();
-            if (RightPressed) player.MoveLeft();
-            if (LeftPressed) player.MoveRight();
+            if (RightPressed) player.MoveRight();
+            if (LeftPressed) player.MoveLeft();
             CheckCollisionWall();
             if (WallCollision == false)
             {
                 player.SetLocation();
             }
-            
-
+          
             // check collisions alle
             CheckCollision();
 
@@ -176,25 +175,25 @@ namespace Capman
             foreach (Wall wall in walls)
             {
                 // get rects
-                Rect Brect = new Rect(
+                Rect Prect = new Rect(
                     player.LocationX,
                     player.LocationY,
                     player.ActualWidth,
                     player.ActualHeight
                     );
 
-                Rect FRect = new Windows.Foundation.Rect(
+                Rect WRect = new Windows.Foundation.Rect(
                     wall.LocationX,
                     wall.LocationY,
                     wall.ActualWidth,
                     wall.ActualHeight
                     );
                 // does these intersects?
-                Brect.Intersect(FRect);
+                Prect.Intersect(WRect);
                 // is Brect empty?
-                if (!Brect.IsEmpty)
+                if (!Prect.IsEmpty)
                 {
-                    if (UpPressed == false)
+                    if (UpPressed == true)
                     {
                         player.MoveDown();
                         UpPressed = false;
@@ -204,7 +203,7 @@ namespace Capman
                         WallCollision = true;
                         break;
                     }
-                    else if (DownPressed == false)
+                    else if (DownPressed == true)
                     {
                         player.MoveUp();
                         UpPressed = false;
@@ -214,7 +213,7 @@ namespace Capman
                         WallCollision = true;
                         break;
                     }
-                    else if (LeftPressed == false)
+                    else if (LeftPressed == true)
                     {
                         player.MoveRight();
                         UpPressed = false;
@@ -224,7 +223,7 @@ namespace Capman
                         WallCollision = true;
                         break;
                     }
-                    else if (RightPressed == false)
+                    else if (RightPressed == true)
                     {
                         player.MoveLeft();
                         UpPressed = false;

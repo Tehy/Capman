@@ -62,7 +62,7 @@ namespace Capman
         public void MoveLeft()
         {
             // Update location values (with speed)
-            LocationX += speed;
+            LocationX -= speed;
             if (LocationX >= 750) LocationX = -75;
             else if (LocationX <= -75) LocationX = 750;
         }
@@ -70,7 +70,7 @@ namespace Capman
         public void MoveRight()
         {
             // Update location values (with speed)
-            LocationX -= speed;
+            LocationX += speed;
             if (LocationX >= 750) LocationX = -75;
             else if (LocationX <= -75) LocationX = 750;
         }
