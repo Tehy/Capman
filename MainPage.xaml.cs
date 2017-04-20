@@ -41,6 +41,7 @@ namespace Capman
         private bool LeftPressed;
         private bool RightPressed;
         private bool DownPressed;
+
         // Was there a collision with wall
         private bool WallCollision;
 
@@ -55,74 +56,9 @@ namespace Capman
 
             this.InitializeComponent();
 
-            
-           /* // MapMatrix
-            int[][] array2D = new int[50][50];
+          
 
-
-            for (int i = 0; i < 50; i++)
-
-            {
-                for (int j = 0; j < 50; j++)
-                {
-                    if (array2D[j][i] == 2)
-                    {
-                        player = new Player();
-                        {
-                            LocationX = j * 20;
-                            LocationY = i * 20;
-                        };
-                    MyCanvas.Children.Add(player);
-
-                    }
-
-                else if (array2D[j][i] == 1)
-                {
-                    // create a new food
-                    Food food = new Food();
-                        // set location 
-                        {
-                            LocationX = j * 20;
-                            LocationY = i * 20;
-                        };
-                        MyCanvas.Children.Add(food);
-                        // set wall location in canvas
-                        food.SetLocation();
-                        // add to walls list (for collision checking)
-                        walls.Add(food);
-                    }
-
-                    else if (array2D[j][i] == 1)
-                    {
-                        // create a new food
-                       Wall wall = new Wall();
-                        // set location 
-                        {
-                            LocationX = j * 20;
-                            LocationY = i * 20;
-                        };
-                        MyCanvas.Children.Add(Wall);
-                        // set wall location in canvas
-                        wall.SetLocation();
-                        // add to walls list (for collision checking)
-                        walls.Add(wall);
-                    }
-
-                    */
-
-
-
-
-
-                    // add player
-                    player = new Player
-            {
-                LocationX = MyCanvas.Width / 2,
-                LocationY = MyCanvas.Height / 2
-
-            };
-            MyCanvas.Children.Add(player);
-            
+       
           
 
             // initialize list of food
@@ -131,13 +67,104 @@ namespace Capman
             // initialize wall list
             walls = new List<Wall>();
 
+
+            // MapMatrix
+            int[,] array2D = new int[25, 25]
+
+{{3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+};
+
+
+            for (int i = 0; i < 25; i++)
+
+
+            {
+                for (int j = 0; j < 25; j++)
+                {
+                    if (array2D[j, i] == 2)
+                    {
+                        player = new Player
+                        {
+                            LocationX = i * 40,
+                            LocationY = j * 40
+
+                        };
+                        MyCanvas.Children.Add(player);
+                    }
+
+                    else if (array2D[j, i] == 1)
+                    {
+                        // create a new food
+                        Food food = new Food();
+                        // set location with mouse position
+                        food.LocationX = i * 40;
+                        food.LocationY = j * 40;
+                        // add to game canvas
+                        MyCanvas.Children.Add(food);
+                        // set food location in canvas
+                        food.SetLocation();
+                        // add to foods list (for collision checking)
+                        foods.Add(food);
+                    }
+
+                    else if (array2D[j, i] == 3)
+                    {
+                        // create a new wall
+                        Wall wall = new Wall();
+                        // set location 
+                        {
+                            wall.LocationX = i * 40;
+                            wall.LocationY = j * 40;
+                        };
+                        MyCanvas.Children.Add(wall);
+                        // set wall location in canvas
+                        wall.SetLocation();
+                        // add to walls list (for collision checking)
+                        walls.Add(wall);
+                    }
+
+                }
+            }
+
             CreateWalls();
 
+            // add player
+            player = new Player
+            {
+                LocationX = MyCanvas.Width / 2,
+                LocationY = MyCanvas.Height / 2
+
+            };
+            MyCanvas.Children.Add(player);
 
 
-                // key Listener
+            // key Listener
 
-                Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
+            Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
      
 
             // Timer
@@ -199,11 +226,11 @@ namespace Capman
             }
           
             // check collisions alle
-            CheckCollision();
+            CheckCollisionFood();
 
         }
 
-        private void CheckCollision()
+        private void CheckCollisionFood()
         {
             foreach(Food food in foods)
             {
@@ -233,7 +260,6 @@ namespace Capman
                   
                     break;
                 }
-
             }
         }
 
@@ -255,7 +281,7 @@ namespace Capman
                     wall.ActualWidth,
                     wall.ActualHeight
                     );
-                // does these intersects?
+                // do these interact?
                 Prect.Intersect(WRect);
                 // is Brect empty?
                 if (!Prect.IsEmpty)
@@ -300,18 +326,12 @@ namespace Capman
                         WallCollision = true;
                         break;
                     }
-                    /*UpPressed = false;
-                    LeftPressed = false;
-                    RightPressed = false;
-                    DownPressed = false;
-                    WallCollision = true;
-                    break;*/
+                 
                 }
                 else
                 {
                     WallCollision = false;
                 }
-
             }
         }
 
@@ -349,7 +369,6 @@ namespace Capman
 
         private void CreateWalls()
         {
-
             for (int i = 0; i < 50; i++)
             {// create a new wall
 
@@ -363,7 +382,6 @@ namespace Capman
                 wall.SetLocation();
                 // add to walls list (for collision checking)
                 walls.Add(wall);
-
             }
 
             for (int i = 0; i < 50; i++)
@@ -379,7 +397,6 @@ namespace Capman
                 wall.SetLocation();
                 // add to walls list (for collision checking)
                 walls.Add(wall);
-
             }
 
             for (int i = 0; i < 50; i++)
@@ -395,7 +412,6 @@ namespace Capman
                 wall.SetLocation();
                 // add to walls list (for collision checking)
                 walls.Add(wall);
-
             }
 
             for (int i = 0; i < 50; i++)
@@ -411,86 +427,9 @@ namespace Capman
                 wall.SetLocation();
                 // add to walls list (for collision checking)
                 walls.Add(wall);
-
             }
 
-            for (int i = 5; i < 20; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 500;
-                wall.LocationY = i * 20;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-
-            }
-
-            for (int i = 5; i < 20; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 500;
-                wall.LocationY = i * 20;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-
-            }
-
-            for (int i = 5; i < 20; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 500;
-                wall.LocationY = 500 + i * 20;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-
-            }
-
-            for (int i = 5; i < 20; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 200;
-                wall.LocationY = 500 + i * 20;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-
-            }
-            for (int i = 5; i < 20; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 500 + i * 20;
-                wall.LocationY = 250;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-            }
+           
         }
     }
 }
