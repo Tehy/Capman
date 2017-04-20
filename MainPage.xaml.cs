@@ -89,32 +89,32 @@ namespace Capman
 
         /* private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
          {
-             // create a new flower
+             // create a new food
              Food food = new Food();
              // set location with mouse position
              food.LocationX = args.CurrentPoint.Position.X - food.Width / 2;
              food.LocationY = args.CurrentPoint.Position.Y - food.Height / 2;
              // add to game canvas
              MyCanvas.Children.Add(food);
-             // set flower location in canvas
+             // set food location in canvas
              food.SetLocation();
-             // add to flowers list (for collision checking)
+             // add to foods list (for collision checking)
              foods.Add(food);
          }
          */
 
         private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
         {
-            // create a new flower
+            // create a new wall
             Wall wall = new Wall();
             // set location with mouse position
             wall.LocationX = args.CurrentPoint.Position.X - wall.Width / 2;
             wall.LocationY = args.CurrentPoint.Position.Y - wall.Height / 2;
             // add to game canvas
             MyCanvas.Children.Add(wall);
-            // set flower location in canvas
+            // set wall location in canvas
             wall.SetLocation();
-            // add to flowers list (for collision checking)
+            // add to walls list (for collision checking)
             walls.Add(wall);
         }
 
@@ -130,7 +130,7 @@ namespace Capman
             {
                 player.SetLocation();
             }
-            player.SetLocation();
+            
 
             // check collisions alle
             CheckCollision();
