@@ -28,11 +28,13 @@ namespace Capman
 
         //ghost
         private Ghost ghost;
+        //private List<Ghost> ghosts;
 
         // Food
 
         private List<Food> foods;
         private List<Superfood> superfoods;
+
 
         // Wall
 
@@ -205,6 +207,7 @@ namespace Capman
             MyCanvas.Children.Add(ghost);
 
             Up = true;
+           
            // RandomDirectionGhost();
 
             // key Listener
