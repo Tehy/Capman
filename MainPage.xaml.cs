@@ -26,9 +26,13 @@ namespace Capman
         //player
         private Player player;
 
+        //ghost
+        private Ghost ghost;
+
         // Food
 
         private List<Food> foods;
+        private List<Superfood> superfoods;
 
         // Wall
 
@@ -42,30 +46,40 @@ namespace Capman
         private bool RightPressed;
         private bool DownPressed;
 
+        // Ghost movement
+        private bool Up;
+        private bool Left;
+        private bool Right;
+        private bool Down;
+
         // Was there a collision with wall
         private bool WallCollision;
+        private bool GhostWallCollision;
+
+        // super food eaten?
+        private bool SuperfoodEaten;
+
+        // counter for superfood
+        private int SuperFoodCounter = 0;
 
         // game loop timer
         private DispatcherTimer timer;
-
-        
-
 
         public MainPage()
         {
 
             this.InitializeComponent();
 
-          
-
-       
-          
-
             // initialize list of food
             foods = new List<Food>();
 
+            // initialize list of superfood
+            superfoods = new List<Superfood>();
+
             // initialize wall list
             walls = new List<Wall>();
+
+            
 
 
             // MapMatrix
@@ -73,36 +87,35 @@ namespace Capman
 
 {
 {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3},
-{3, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
-{3, 1, 3, 3, 3, 3, 1, 1, 1, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 3, 1, 3},
+{3, 2, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 3},
+{3, 1, 3, 3, 3, 3, 1, 1, 1, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 3, 3, 3, 3, 1, 3},
 {3, 1, 3, 1, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 3},
 {3, 1, 3, 1, 3, 3, 1, 1, 1, 1, 1, 3, 3, 3, 1, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3},
 {3, 1, 3, 1, 3, 1, 1, 3, 3, 1, 3, 3, 1, 1, 1, 1, 3, 1, 3, 3, 3, 1, 3, 1, 3},
 {3, 1, 1, 1, 3, 1, 3, 3, 1, 1, 1, 3, 1, 3, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 3},
-{3, 1, 3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3},
-{3, 1, 3, 1, 1, 1, 3, 1, 3, 3, 1, 3, 1, 3, 3, 1, 3, 1, 1, 1, 1, 1, 3, 1, 3},
-{3, 1, 3, 3, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 3, 3, 3, 1, 3, 1, 3},
+{3, 1, 3, 1, 3, 1, 1, 2, 1, 3, 1, 1, 1, 1, 1, 1, 3, 3, 3, 1, 3, 3, 3, 3, 3},
+{3, 1, 3, 1, 1, 1, 3, 1, 3, 3, 1, 3, 1, 3, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 3},
+{3, 1, 3, 3, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 3, 3, 3, 1, 3, 1, 3},
 {3, 1, 1, 1, 1, 1, 3, 1, 3, 3, 3, 4, 3, 3, 3, 1, 3, 1, 3, 1, 1, 1, 1, 1, 3},
-{3, 1, 3, 1, 3, 1, 3, 1, 3, 4, 4, 4, 4, 4, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3},
-{3, 1, 3, 1, 3, 1, 1, 1, 3, 4, 4, 4, 4, 4, 3, 1, 1, 1, 3, 1, 3, 1, 3, 1, 3},
+{3, 3, 3, 1, 3, 1, 3, 1, 3, 4, 4, 4, 4, 4, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3},
+{3, 2, 1, 1, 3, 1, 1, 1, 3, 4, 4, 4, 4, 4, 3, 1, 1, 1, 3, 1, 3, 1, 3, 2, 3},
 {3, 1, 3, 1, 3, 1, 3, 1, 3, 4, 4, 4, 4, 4, 3, 1, 3, 1, 1, 1, 3, 1, 3, 1, 3},
-{3, 1, 1, 1, 1, 1, 3, 1, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 3},
+{3, 1, 1, 1, 1, 1, 3, 1, 3, 3, 3, 4, 3, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 3},
 {3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
-{3, 1, 3, 1, 1, 1, 3, 1, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 1, 3},
+{3, 1, 3, 1, 1, 1, 3, 1, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3},
 {3, 1, 3, 3, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
 {3, 1, 1, 1, 3, 1, 3, 1, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 3, 1, 3},
-{3, 1, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 3, 1, 1, 3, 1, 3},
-{3, 1, 3, 1, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 3, 3, 1, 3, 1, 3},
-{3, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 3, 1, 3, 1, 1, 1, 3, 1, 1, 1, 1, 3, 1, 3},
-{3, 1, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 3, 3, 3, 1, 3},
-{3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3},
+{3, 3, 3, 1, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 2, 1, 3, 1, 1, 3, 1, 3},
+{3, 1, 1, 1, 3, 3, 1, 3, 3, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 3, 3, 1, 3, 1, 3},
+{3, 1, 3, 1, 1, 1, 2, 3, 1, 1, 1, 3, 1, 3, 1, 1, 1, 3, 1, 1, 1, 1, 3, 1, 3},
+{3, 1, 3, 3, 3, 3, 3, 3, 1, 3, 1, 3, 1, 3, 3, 3, 1, 1, 1, 3, 3, 3, 3, 1, 3},
+{3, 2, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 2, 3},
 {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3}
 };
 
+            // Create the map by using matrix
 
             for (int i = 0; i < 25; i++)
-
-
             {
                 for (int j = 0; j < 25; j++)
                 {
@@ -111,9 +124,7 @@ namespace Capman
                         Player player = new Player();
                         
                             player.LocationX = i * 40;
-                            player.LocationY = j * 40;
-
-                        
+                            player.LocationY = j * 40;                     
                         MyCanvas.Children.Add(player);
                         player.SetLocation();
                     }
@@ -131,6 +142,21 @@ namespace Capman
                         food.SetLocation();
                         // add to foods list (for collision checking)
                         foods.Add(food);
+                    }
+
+                    else if (array2D[j, i] == 2)
+                    {
+                        // create a new superfood
+                        Superfood superfood = new Superfood();
+                        // set location 
+                        superfood.LocationX = i * 40;
+                        superfood.LocationY = j * 40;
+                        // add to game canvas
+                        MyCanvas.Children.Add(superfood);
+                        // set food location in canvas
+                        superfood.SetLocation();
+                        // add to foods list (for collision checking)
+                        superfoods.Add(superfood);
                     }
 
                     else if (array2D[j, i] == 3)
@@ -164,6 +190,16 @@ namespace Capman
             MyCanvas.Children.Add(player);
 
            
+            // Add Ghost
+            ghost = new Ghost
+            {
+                LocationX = MyCanvas.Width / 2 - 55,
+                LocationY = MyCanvas.Height / 2
+            };
+            MyCanvas.Children.Add(ghost);
+
+            Up = true;
+           // RandomDirectionGhost();
 
             // key Listener
 
@@ -186,16 +222,16 @@ namespace Capman
         private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
          {
              // create a new food
-             Food food = new Food();
+             Superfood superfood = new Superfood();
              // set location with mouse position
-             food.LocationX = args.CurrentPoint.Position.X - food.Width / 2;
-             food.LocationY = args.CurrentPoint.Position.Y - food.Height / 2;
+             superfood.LocationX = args.CurrentPoint.Position.X - superfood.Width / 2;
+            superfood.LocationY = args.CurrentPoint.Position.Y - superfood.Height / 2;
              // add to game canvas
-             MyCanvas.Children.Add(food);
-             // set food location in canvas
-             food.SetLocation();
-             // add to foods list (for collision checking)
-             foods.Add(food);
+             MyCanvas.Children.Add(superfood);
+            // set food location in canvas
+            superfood.SetLocation();
+            // add to foods list (for collision checking)
+            superfoods.Add(superfood);
          }
          
         /*
@@ -219,7 +255,9 @@ namespace Capman
 
         private void Timer_Tick(object sender, object e)
         {
-            
+
+            ghost.SetLocation();
+
             if (UpPressed) player.MoveUp();
             if (DownPressed) player.MoveDown();
             if (RightPressed) player.MoveRight();
@@ -229,10 +267,24 @@ namespace Capman
             {
                 player.SetLocation();
             }
-          
+
+            if (Up) ghost.MoveUp();
+            if (Down) ghost.MoveDown();
+            if (Right) ghost.MoveRight();
+            if (Left) ghost.MoveLeft();
+            CheckCollisionGhost();
+            CheckCollisionGhostWall();
+            if (GhostWallCollision == false)
+            {
+                ghost.SetLocation();
+            }
+
+            Superfoodtimer();
+
             // check collisions alle
             CheckCollisionFood();
-
+            CheckCollisionSuperFood();
+            CheckCollisionGhost();
         }
 
         //check collisions with food dots
@@ -269,8 +321,77 @@ namespace Capman
             }
         }
 
-        // check collisions with walls
-        private void CheckCollisionWall()
+        //check collisions with Superfood dots
+        private void CheckCollisionSuperFood()
+        {
+            foreach (Superfood superfood in superfoods)
+            {
+                // get rects
+                Rect Brect = new Rect(
+                    player.LocationX,
+                    player.LocationY,
+                    player.ActualWidth,
+                    player.ActualHeight
+                    );
+
+                Rect FRect = new Windows.Foundation.Rect(
+                    superfood.LocationX,
+                    superfood.LocationY,
+                    superfood.ActualWidth,
+                    superfood.ActualHeight
+                    );
+                // does these intersects?
+                Brect.Intersect(FRect);
+                // is Brect empty?
+                if (!Brect.IsEmpty)
+                {
+                    // remove food
+                    MyCanvas.Children.Remove(superfood);
+                    superfoods.Remove(superfood);
+                    SuperfoodEaten = true;
+
+                    break;
+                }
+            }
+        }
+
+        // check player collision on ghost
+        private void CheckCollisionGhost()
+        {
+            // get rects
+            Rect Brect = new Rect(
+                player.LocationX,
+                player.LocationY,
+                player.ActualWidth,
+                player.ActualHeight
+                );
+
+            Rect FRect = new Windows.Foundation.Rect(
+                ghost.LocationX,
+                ghost.LocationY,
+                ghost.ActualWidth,
+                ghost.ActualHeight
+                );
+            // does these intersects?
+            Brect.Intersect(FRect);
+            // is Brect empty?
+            if (!Brect.IsEmpty)
+            {
+                // remove player
+                if (SuperfoodEaten == true)
+                {
+                    MyCanvas.Children.Remove(ghost);
+                }
+                else
+                {
+                    MyCanvas.Children.Remove(player);
+                }
+
+            }
+        }
+
+    // check collisions with walls
+    private void CheckCollisionWall()
         {
             foreach (Wall wall in walls)
             {
@@ -341,6 +462,124 @@ namespace Capman
                 }
             }
         }
+
+
+        // check ghost collisions with walls
+        private void CheckCollisionGhostWall()
+        {
+            foreach (Wall wall in walls)
+            {
+                // get rects
+                Rect Grect = new Rect(
+                    ghost.LocationX,
+                    ghost.LocationY,
+                    ghost.ActualWidth,
+                    ghost.ActualHeight
+                    );
+
+                Rect WRect = new Windows.Foundation.Rect(
+                    wall.LocationX,
+                    wall.LocationY,
+                    wall.ActualWidth,
+                    wall.ActualHeight
+                    );
+                // do these interact?
+                Grect.Intersect(WRect);
+                // is Brect empty?
+                if (!Grect.IsEmpty)
+                {
+                    if (Up == true)
+                    {
+                        ghost.MoveDown();
+                        Up = false;
+                        Left = false;
+                        Right = false;
+                        Down = false;
+                        GhostWallCollision = true;
+                        RandomDirectionGhost();
+                        break;
+                    }
+                    else if (Down == true)
+                    {
+                        ghost.MoveUp();
+                        Up = false;
+                        Left= false;
+                        Right = false;
+                        Down = false;
+                        GhostWallCollision = true;
+                        RandomDirectionGhost();
+                        break;
+                    }
+                    else if (Left == true)
+                    {
+                        ghost.MoveRight();                        
+                        Up = false;
+                        Left = false;
+                        Right = false;
+                        Down = false;
+                        GhostWallCollision = true;
+                        RandomDirectionGhost();
+                        break;
+                    }
+                    else if (Right == true)
+                    {
+                        ghost.MoveLeft();                      
+                        Up = false;
+                        Left = false;
+                        Right = false;
+                        Down = false;
+                        GhostWallCollision = true;
+                        RandomDirectionGhost();
+                        break;
+                    }
+
+                }
+                else
+                {
+                    GhostWallCollision = false;
+                }
+            }
+        }
+
+        private void RandomDirectionGhost()
+        {
+            Random rng = new Random();
+            int suunta = rng.Next(0, 4);
+            if (suunta == 0)
+            {
+                Up = true;               
+            }
+            else if (suunta == 1)
+            {
+                Down = true;
+            }
+            else if (suunta == 2)
+            {
+                Left = true;
+            }
+            else if (suunta == 3)
+            {
+                Right = true;
+            }
+
+        }
+
+        // is superfood still usable (6 seconds from eating)
+        private void Superfoodtimer()
+        {
+            if (SuperfoodEaten == true)
+            {
+                if (SuperFoodCounter < 360)
+                {
+                    SuperFoodCounter += 1;
+                }
+                else
+                {
+                    SuperfoodEaten = false;
+                }
+            }
+        }
+
 
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {

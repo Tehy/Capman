@@ -98,6 +98,9 @@
     <Compile Include="Food.xaml.cs">
       <DependentUpon>Food.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ghost.xaml.cs">
+      <DependentUpon>Ghost.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,9 @@
       <DependentUpon>Player.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Superfood.xaml.cs">
+      <DependentUpon>Superfood.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wall.xaml.cs">
       <DependentUpon>Wall.xaml</DependentUpon>
     </Compile>
@@ -141,6 +147,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ghost.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +160,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Player.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Superfood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
