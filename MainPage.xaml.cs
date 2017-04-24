@@ -62,6 +62,12 @@ namespace Capman
         // counter for superfood
         private int SuperFoodCounter = 0;
 
+        // player lives
+        private int lives = 3;
+
+        // Points
+        private int points = 0; 
+
         // game loop timer
         private DispatcherTimer timer;
 
@@ -314,6 +320,7 @@ namespace Capman
                     // remove food
                     MyCanvas.Children.Remove(food);
                     foods.Remove(food);
+                    points += 1;
                     
                   
                     break;
@@ -348,6 +355,7 @@ namespace Capman
                     // remove food
                     MyCanvas.Children.Remove(superfood);
                     superfoods.Remove(superfood);
+                    points += 5;
                     SuperfoodEaten = true;
 
                     break;
@@ -377,14 +385,50 @@ namespace Capman
             // is Brect empty?
             if (!Brect.IsEmpty)
             {
-                // remove player
+                // remove player pr ghost
                 if (SuperfoodEaten == true)
                 {
+                    // remove ghost and create a new one going up from the middle
                     MyCanvas.Children.Remove(ghost);
+                    points += 20;
+                    // Add Ghost
+                    Up = true;
+                    Down = false;
+                    Right = false;
+                    Left = false;
+
+                    ghost = new Ghost
+                    {
+                        LocationX = MyCanvas.Width / 2 - 55,
+                        LocationY = MyCanvas.Height / 2
+                    };
+                    MyCanvas.Children.Add(ghost);
+
+                    Up = true;
                 }
+               
+                // kill the player
                 else
                 {
                     MyCanvas.Children.Remove(player);
+                    lives -= 1;
+                    if (lives > 0)
+                    {
+                        // add player
+                        player = new Player
+                        {
+                            LocationX = MyCanvas.Width / 2,
+                            LocationY = MyCanvas.Height / 2 + 105
+
+                        };
+                        MyCanvas.Children.Add(player);
+
+                    }
+
+                    else if (lives == 0 )
+                    {
+                        this.Frame.Navigate(typeof(MainMenu));
+                    }
                 }
 
             }
