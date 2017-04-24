@@ -19,15 +19,12 @@ namespace Capman
 {
     public sealed partial class Player : UserControl
     {
-        // Speed and acceleration
-       
-        
+        // Speed 
         private double speed = 5;
 
         //location
         public double LocationX { get; set; }
         public double LocationY { get; set; }
-
 
 
         public Player()
@@ -42,7 +39,7 @@ namespace Capman
             SetValue(Canvas.TopProperty, LocationY);
         }
 
-        // Move
+        // Move functions
         public void MoveUp()
         {
             // Update location values (with speed)

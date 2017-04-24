@@ -122,6 +122,7 @@
     <Content Include="Assets\Ball.png" />
     <Content Include="Assets\capman_ph.gif" />
     <Content Include="Assets\Wall.png" />
+    <Content Include="Assets\ympyra.gif" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

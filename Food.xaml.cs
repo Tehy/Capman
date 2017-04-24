@@ -33,8 +33,8 @@ namespace Capman
         }
         public void SetLocation()
         {
-            SetValue(Canvas.LeftProperty, LocationX);
-            SetValue(Canvas.TopProperty, LocationY);
+            SetValue(Canvas.LeftProperty, LocationX + 10);
+            SetValue(Canvas.TopProperty, LocationY + 10);
         }
 
     }
