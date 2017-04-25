@@ -73,6 +73,10 @@ namespace Capman
         // game loop timer
         private DispatcherTimer timer;
 
+        private int WantToMoveDir = 0;
+        private int LastOkMoveDir = 0;
+
+
         public MainPage()
         {
 
@@ -268,16 +272,59 @@ namespace Capman
             ghost.SetLocation();
 
             if (UpPressed) player.MoveUp();
-            if (DownPressed) player.MoveDown();
-            if (RightPressed) player.MoveRight();
-            if (LeftPressed) player.MoveLeft();
+            else if (DownPressed) player.MoveDown();
+            else if (RightPressed) player.MoveRight();
+            else if (LeftPressed) player.MoveLeft();
             CheckCollisionWall();
-            if (WallCollision == false)
+            if (WallCollision == true && WantToMoveDir != LastOkMoveDir)
             {
+
+                if (LastOkMoveDir == 1)
+                {
+                    player.MoveUp();
+                    UpPressed = true;
+                }
+                else if (LastOkMoveDir == 3)
+                {
+                    player.MoveDown();
+                    DownPressed = true;
+                }
+                else if (LastOkMoveDir == 2)
+                {
+                    player.MoveRight();
+                    RightPressed = true;
+                }
+                else if (LastOkMoveDir == 4)
+                {
+                    player.MoveLeft();
+                    LeftPressed = true;
+                }
+
+                CheckCollisionWall();
                 player.SetLocation();
+
             }
 
-            if (Up) ghost.MoveUp();
+            else if (WallCollision == false)
+            {
+                
+                player.SetLocation();
+                LastOkMoveDirCheck();
+            }
+            /*else if (WallCollision == true && WantToMoveDir != LastOkMoveDir)
+            {
+
+                if (LastOkMoveDir == 1) player.MoveUp();
+                else if (LastOkMoveDir == 3) player.MoveDown();
+                else if (LastOkMoveDir == 2) player.MoveRight();
+                else if (LastOkMoveDir == 4) player.MoveLeft();
+                CheckCollisionWall();
+                player.SetLocation();
+
+            }*/
+
+
+                if (Up) ghost.MoveUp();
             if (Down) ghost.MoveDown();
             if (Right) ghost.MoveRight();
             if (Left) ghost.MoveLeft();
@@ -627,6 +674,30 @@ namespace Capman
             }
         }
 
+        private void LastOkMoveDirCheck()
+      
+        {
+            if (UpPressed == true)
+            {
+
+                LastOkMoveDir = 1;
+            }
+            else if (RightPressed == true)
+            {
+                LastOkMoveDir = 2;
+            }
+
+            else if (DownPressed == true)
+            {
+                LastOkMoveDir = 3;
+            }
+
+            else if (LeftPressed == true)
+            {
+                LastOkMoveDir = 4;
+
+            }
+        }
 
         private void CoreWindow_KeyDown(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.KeyEventArgs args)
         {
@@ -637,24 +708,28 @@ namespace Capman
                     LeftPressed = false;
                     RightPressed = false;
                     DownPressed = false;
+                    WantToMoveDir = 1;
                     break;
                 case VirtualKey.Left:
                     UpPressed = false;
                     LeftPressed = true;
                     RightPressed = false;
                     DownPressed = false;
+                    WantToMoveDir = 4;
                     break;
                 case VirtualKey.Right:
                     UpPressed = false;
                     LeftPressed = false;
                     RightPressed = true;
                     DownPressed = false;
+                    WantToMoveDir = 2;
                     break;
                 case VirtualKey.Down:
                     UpPressed = false;
                     LeftPressed = false;
                     RightPressed = false;
                     DownPressed = true;
+                    WantToMoveDir = 3;
                     break;
             }
 
