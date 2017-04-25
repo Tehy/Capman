@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Capman.MainMenu"
+    x:Class="Capman.Victory"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Capman"
@@ -9,9 +9,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="PlayButton" Content="Play" Width="200" Margin="5" Click="PlayButton_Click"/>
-            <Button x:Name="HighscoreButton" Content="Highscores" Width="200" Margin="5"/>
-            <Button x:Name="InstructionsButton" Content="Instructions" Width="200" Margin="5" Click="InstructionsButton_Click"/>
-        </StackPanel>
+            <TextBlock Text="You Won!" FontSize="100" Margin="50"/>           
+            <Button x:Name="ReturnToMainMenuButton" Content="Back to Main Menu" Margin="5" Click="ReturnToMainMenuButton_Click" HorizontalAlignment="Center"/>
+             </StackPanel>
     </Grid>
 </Page>

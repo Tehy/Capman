@@ -68,7 +68,7 @@ namespace Capman
         private int lives = 3;
 
         // Points
-        private int points = 0; 
+        public int points = 0; 
 
         // game loop timer
         private DispatcherTimer timer;
@@ -196,7 +196,7 @@ namespace Capman
             player = new Player
             {
                 LocationX = MyCanvas.Width / 2,
-                LocationY = MyCanvas.Height / 2 + 105
+                LocationY = MyCanvas.Height / 2 + 100
 
             };
             MyCanvas.Children.Add(player);
@@ -212,8 +212,6 @@ namespace Capman
 
             Up = true;
            
-           // RandomDirectionGhost();
-
             // key Listener
 
             Window.Current.CoreWindow.KeyDown += CoreWindow_KeyDown;
@@ -247,28 +245,13 @@ namespace Capman
             superfoods.Add(superfood);
          }
          
-        /*
-        private void CoreWindow_PointerPressed(Windows.UI.Core.CoreWindow sender, Windows.UI.Core.PointerEventArgs args)
-        {
-            // create a new wall
-            Wall wall = new Wall();
-            // set location with mouse position
-            wall.LocationX = args.CurrentPoint.Position.X - wall.Width / 2;
-            wall.LocationY = args.CurrentPoint.Position.Y - wall.Height / 2;
-            // add to game canvas
-            MyCanvas.Children.Add(wall);
-            // set wall location in canvas
-            wall.SetLocation();
-            // add to walls list (for collision checking)
-            walls.Add(wall);
-        }*/
-
+ 
 
         // Game timer (THE MOST IMPORTANT THING HERE)
 
         private void Timer_Tick(object sender, object e)
         {
-
+            PointsTextBlock.Text = points.ToString(); 
             ghost.SetLocation();
 
             if (UpPressed) player.MoveUp();
@@ -311,20 +294,10 @@ namespace Capman
                 player.SetLocation();
                 LastOkMoveDirCheck();
             }
-            /*else if (WallCollision == true && WantToMoveDir != LastOkMoveDir)
-            {
+ 
 
-                if (LastOkMoveDir == 1) player.MoveUp();
-                else if (LastOkMoveDir == 3) player.MoveDown();
-                else if (LastOkMoveDir == 2) player.MoveRight();
-                else if (LastOkMoveDir == 4) player.MoveLeft();
-                CheckCollisionWall();
-                player.SetLocation();
-
-            }*/
-
-
-                if (Up) ghost.MoveUp();
+            // ghost movement
+            if (Up) ghost.MoveUp();
             if (Down) ghost.MoveDown();
             if (Right) ghost.MoveRight();
             if (Left) ghost.MoveLeft();
@@ -335,13 +308,26 @@ namespace Capman
                 ghost.SetLocation();
             }
 
-            Superfoodtimer();
 
+            Superfoodtimer();
             // check collisions alle
+
             CheckCollisionFood();
             CheckCollisionSuperFood();
             CheckCollisionGhost();
+
+            if (points == 350)
+            {
+                
+                this.Frame.Navigate(typeof(Victory), points);
+            }
+
         }
+
+
+
+
+
 
         //check collisions with food dots
         private void CheckCollisionFood()
@@ -477,7 +463,7 @@ namespace Capman
 
                     else if (lives == 0 )
                     {
-                        this.Frame.Navigate(typeof(MainMenu));
+                        this.Frame.Navigate(typeof(GameOver), points);
                     }
                 }
 
@@ -735,70 +721,6 @@ namespace Capman
 
         }
 
-        // Luodaan reunamuurit (ei kaytossa)
-        private void CreateWalls()
-        {
-            for (int i = 0; i < 50; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = i * 20;
-                wall.LocationY = 0;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-            }
-
-            for (int i = 0; i < 50; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = i * 20;
-                wall.LocationY = 980;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-            }
-
-            for (int i = 0; i < 50; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 0;
-                wall.LocationY = i * 20;
-                // add to game canvas
-                MyCanvas.Children.Add(wall); 
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-            }
-
-            for (int i = 0; i < 50; i++)
-            {// create a new wall
-
-                Wall wall = new Wall();
-                // set location 
-                wall.LocationX = 980;
-                wall.LocationY = i * 20;
-                // add to game canvas
-                MyCanvas.Children.Add(wall);
-                // set wall location in canvas
-                wall.SetLocation();
-                // add to walls list (for collision checking)
-                walls.Add(wall);
-            }
-
-           
-        }
+       
     }
 }

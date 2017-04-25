@@ -15,8 +15,17 @@
             VerticalAlignment="Center"
             Width="1000"
             Height="1000"/>
-            
-        
+
+        <TextBlock x:Name="PointsTextBlock" 
+                   Foreground="White"
+                   FontSize="35"
+                   Width="100"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap" 
+                   Text="0" 
+                   />
 
     </Grid>
 </Page>
+

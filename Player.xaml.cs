@@ -30,8 +30,9 @@ namespace Capman
         public Player()
         {
             this.InitializeComponent();
+        
         }
-
+        
              // Show player
         public void SetLocation()
         {

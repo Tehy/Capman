@@ -20,22 +20,28 @@ namespace Capman
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainMenu : Page
+    public sealed partial class Instructions : Page
     {
-        public MainMenu()
+        public Instructions()
         {
             this.InitializeComponent();
 
         }
-        private void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            // add and navigate to a game page
-            this.Frame.Navigate(typeof(MainPage));
-        }
 
-        private void InstructionsButton_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void ReturnToMenuButton_Click_1(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(Instructions));
+            // get root frame (which show pages)
+            Frame rootFrame = Window.Current.Content as Frame;
+            // did we get it correctly
+            if (rootFrame == null) return;
+            // navigate back if possible
+            if (rootFrame.CanGoBack)
+            {
+                rootFrame.GoBack();
+            }
         }
     }
 }
