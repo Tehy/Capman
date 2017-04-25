@@ -776,7 +776,7 @@ namespace Capman
                 wall.LocationX = 0;
                 wall.LocationY = i * 20;
                 // add to game canvas
-                MyCanvas.Children.Add(wall);
+                MyCanvas.Children.Add(wall); 
                 // set wall location in canvas
                 wall.SetLocation();
                 // add to walls list (for collision checking)
